@@ -30,8 +30,8 @@ class CodexAdapter(AgentAdapter):
         """
         Run Codex CLI with a prompt in the given directory.
 
-        Uses `codex -q` (quiet/non-interactive mode) with
-        --approval-mode full-auto for autonomous execution.
+        Uses `codex exec` (non-interactive mode) with
+        --full-auto for autonomous sandboxed execution.
         """
         if not self.is_available():
             raise RuntimeError(
@@ -42,12 +42,13 @@ class CodexAdapter(AgentAdapter):
         try:
             prompt_file.write_text(prompt, encoding="utf-8")
 
-            cmd = ["codex", "-q", "--approval-mode", "full-auto"]
+            cmd = ["codex", "exec", "--full-auto"]
 
             model = self.config.get("model")
             if model:
-                cmd.extend(["--model", model])
+                cmd.extend(["-m", model])
 
+            cmd.extend(["-C", working_dir])
             cmd.append(prompt)
 
             logger.debug("Running Codex: %s", " ".join(cmd[:4]) + " ...")

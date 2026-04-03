@@ -4,14 +4,14 @@
 agents:
   claude:
     command: "claude"
-    model: "opus"           # Claude model to use
-    max_turns: 10           # Max conversation turns per execution
-    timeout: 300            # Timeout in seconds
+    model: "claude-opus-4-6"       # Claude Opus 4.6 (highest capability)
+    max_turns: 10                  # Max conversation turns per execution
+    timeout: 600                   # Timeout in seconds
 
   codex:
     command: "codex"
-    model: "o4-mini"        # Codex model to use
-    timeout: 300
+    model: "gpt-5.4"              # GPT-5.4 (highest capability)
+    timeout: 600
 
 # Directories
 queue_dir: "queue"

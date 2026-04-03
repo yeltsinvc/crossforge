@@ -43,7 +43,7 @@ class ClaudeAdapter(AgentAdapter):
         try:
             prompt_file.write_text(prompt, encoding="utf-8")
 
-            cmd = ["claude", "-p", "--output-format", "text"]
+            cmd = ["claude", "-p", "--output-format", "text", "--effort", "high"]
 
             model = self.config.get("model")
             if model:
