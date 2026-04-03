@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 crossforge = "crossforge.core.orchestrator:main"
+crossforge-run = "crossforge.cli:run"
 
 [tool.setuptools.packages.find]
 include = ["crossforge*"]
