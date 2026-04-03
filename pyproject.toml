@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crossforge"
+version = "0.1.0"
+description = "Dual-agent orchestration where Claude Code and Codex collaborate, review each other, and forge shared skills"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+crossforge = "crossforge.core.orchestrator:main"
+
+[tool.setuptools.packages.find]
+include = ["crossforge*"]

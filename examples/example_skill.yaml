@@ -1,0 +1,27 @@
+name: consistent-error-handling
+slug: consistent-error-handling
+category: python
+confidence: 0.92
+times_reinforced: 5
+times_challenged: 0
+description: >
+  Always use custom exception classes instead of bare exceptions.
+  Log the error with context before re-raising.
+example: |
+  # Bad
+  try:
+      do_something()
+  except Exception:
+      pass
+
+  # Good
+  try:
+      do_something()
+  except SpecificError as e:
+      logger.error("Operation failed: %s", e)
+      raise
+source:
+  task: "Refactor error handling in auth module"
+  executor: codex
+  reviewer: claude
+  date: "2026-04-03T12:00:00+00:00"

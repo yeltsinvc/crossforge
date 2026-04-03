@@ -1,0 +1,26 @@
+# CrossForge Configuration
+# Dual-agent orchestration with shared skills
+
+agents:
+  claude:
+    command: "claude"
+    model: "opus"           # Claude model to use
+    max_turns: 10           # Max conversation turns per execution
+    timeout: 300            # Timeout in seconds
+
+  codex:
+    command: "codex"
+    model: "o4-mini"        # Codex model to use
+    timeout: 300
+
+# Directories
+queue_dir: "queue"
+reviews_dir: "reviews"
+skills_dir: "skills"
+
+# Orchestrator settings
+orchestrator:
+  default_first_agent: "claude"     # Which agent executes first by default
+  max_rounds: 1                     # Default number of execute-review rounds
+  min_confidence_for_skill: 0.3     # Minimum confidence to keep a skill active
+  deprecation_threshold: 0.2        # Below this, skills get archived
