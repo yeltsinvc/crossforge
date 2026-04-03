@@ -6,6 +6,8 @@ prompts and receive structured output.
 """
 
 import logging
+import os
+import platform
 import shutil
 import subprocess
 import tempfile
@@ -57,16 +59,21 @@ class CodexAdapter(AgentAdapter):
                 cmd.extend(["-c", f'model_reasoning_effort="{reasoning_effort}"'])
 
             cmd.extend(["-C", str(target)])
-            cmd.append(prompt)
+            cmd.append("--skip-git-repo-check")
+
+            # Pass prompt via stdin to avoid CLI argument length limits
+            cmd.append("-")
 
             logger.debug("Running Codex: %s", " ".join(cmd[:4]) + " ...")
 
             result = subprocess.run(
                 cmd,
-                cwd=working_dir,
+                cwd=str(target),
                 capture_output=True,
                 text=True,
-                timeout=self.config.get("timeout", 300),
+                input=prompt,
+                timeout=self.config.get("timeout", 600),
+                shell=platform.system() == "Windows",
             )
 
             if result.returncode != 0:
