@@ -39,6 +39,10 @@ class ClaudeAdapter(AgentAdapter):
                 "Claude Code CLI not found. Install it: https://docs.anthropic.com/en/docs/claude-code"
             )
 
+        target = Path(working_dir).resolve()
+        if not target.is_dir():
+            raise RuntimeError(f"Target directory does not exist: {target}")
+
         prompt_file = Path(tempfile.mktemp(suffix=".md"))
         try:
             prompt_file.write_text(prompt, encoding="utf-8")
@@ -59,7 +63,7 @@ class ClaudeAdapter(AgentAdapter):
 
             result = subprocess.run(
                 cmd,
-                cwd=working_dir,
+                cwd=str(target),
                 capture_output=True,
                 text=True,
                 timeout=self.config.get("timeout", 300),

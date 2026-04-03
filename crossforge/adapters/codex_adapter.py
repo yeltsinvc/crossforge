@@ -38,6 +38,10 @@ class CodexAdapter(AgentAdapter):
                 "Codex CLI not found. Install it: https://github.com/openai/codex"
             )
 
+        target = Path(working_dir).resolve()
+        if not target.is_dir():
+            raise RuntimeError(f"Target directory does not exist: {target}")
+
         prompt_file = Path(tempfile.mktemp(suffix=".md"))
         try:
             prompt_file.write_text(prompt, encoding="utf-8")
@@ -52,7 +56,7 @@ class CodexAdapter(AgentAdapter):
             if reasoning_effort:
                 cmd.extend(["-c", f'model_reasoning_effort="{reasoning_effort}"'])
 
-            cmd.extend(["-C", working_dir])
+            cmd.extend(["-C", str(target)])
             cmd.append(prompt)
 
             logger.debug("Running Codex: %s", " ".join(cmd[:4]) + " ...")

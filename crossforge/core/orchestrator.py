@@ -65,6 +65,7 @@ class Orchestrator:
         4. Extract skills from the review
         5. Optionally iterate for more rounds
         """
+        target = str(Path(target).resolve())
         task = self.queue.create_task(description, target)
         skills_context = self.skill_manager.get_relevant_skills(description)
 
