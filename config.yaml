@@ -11,6 +11,7 @@ agents:
   codex:
     command: "codex"
     model: "gpt-5.4"              # GPT-5.4 (highest capability)
+    reasoning_effort: "xhigh"     # Extra high reasoning effort
     timeout: 600
 
 # Directories

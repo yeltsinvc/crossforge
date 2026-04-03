@@ -48,6 +48,10 @@ class CodexAdapter(AgentAdapter):
             if model:
                 cmd.extend(["-m", model])
 
+            reasoning_effort = self.config.get("reasoning_effort")
+            if reasoning_effort:
+                cmd.extend(["-c", f'model_reasoning_effort="{reasoning_effort}"'])
+
             cmd.extend(["-C", working_dir])
             cmd.append(prompt)
 
